@@ -30,11 +30,11 @@ class ProductRequest extends FormRequest
             'code' => 'required',
             'category' => [
                 'required',
-                Rule::in(['Categoria 1','Categoria 2','Categoria 3'])
+                Rule::in(['categoria 1','categoria 2','categoria 3'])
             ],
             'status' => [
                 'required',
-                Rule::in(['Sem Estoque','Em Estoque'])
+                Rule::in(['sem estoque','em estoque'])
             ]
         ];
     }

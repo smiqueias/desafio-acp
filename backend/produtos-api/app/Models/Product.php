@@ -17,4 +17,18 @@ class Product extends Model
         'status',
     ];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower($value);
+    }
+
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = strtolower($value);
+    }
+
+    public function setCategoryAttribute($value)
+    {
+        $this->attributes['category'] = strtolower($value);
+    }
 }

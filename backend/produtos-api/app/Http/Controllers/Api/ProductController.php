@@ -53,6 +53,9 @@ class ProductController extends Controller
                     $product
                 ]
             ],200);
+
+
+
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(),401);
         }
@@ -88,5 +91,21 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(),401);
         }
+    }
+
+    public function getByName(Request $request)
+    {
+        $query = Product::query();
+
+        if ( $request->has('nome')) {
+            $query->where('name','LIKE', "%{$request->nome}%")->get();
+        }
+
+        $products = $query->paginate(10);
+        return response()->json([
+            'data' => [
+                $products,
+            ]
+        ]);
     }
 }
