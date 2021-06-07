@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -22,18 +24,24 @@ class ProductController extends Controller
 
         return response()->json([
             'data' => $products,
-        ]);
+        ],200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(ProductRequest $request) : JsonResponse
     {
-        //
+        $data = $request->all();
+
+        try {
+            $product = $this->product->create($data);
+            return response()->json([
+                'data' => [
+                    'msg' => 'Produto registrado com sucesso!'
+                ]
+            ],201);
+        } catch (\Exception $exception) {
+             return response()->json($exception->getMessage(),401);
+        }
+
     }
 
     /**
