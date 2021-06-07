@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->double('price');
             $table->string('code');
-            $table->enum('categorie',['Categoria 1','Categoria 2','Categoria 1']);
+            $table->enum('category',['Categoria 1','Categoria 2','Categoria 3']);
             $table->enum('status',['Sem Estoque','Em Estoque']);
             $table->timestamps();
         });
