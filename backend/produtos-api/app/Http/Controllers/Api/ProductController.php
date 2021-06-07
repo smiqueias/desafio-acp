@@ -18,8 +18,20 @@ class ProductController extends Controller
         return $this->product = $product;
     }
 
-    public function index() : JsonResponse
+    public function index(Request $request) : JsonResponse
     {
+        if ($request->has('nome')) {
+            $nome = strtolower($request->nome);
+            $query = Product::query();
+            $query->where('name','LIKE', "{$nome}%")->get();
+            $products = $query->paginate(10);
+            return response()->json([
+                'data' => [
+                    $products,
+                ]
+            ]);
+        }
+
         $products = Product::paginate(10);
 
         return response()->json([
@@ -91,21 +103,5 @@ class ProductController extends Controller
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage(),401);
         }
-    }
-
-    public function getByName(Request $request)
-    {
-        $query = Product::query();
-
-        if ( $request->has('nome')) {
-            $query->where('name','LIKE', "%{$request->nome}%")->get();
-        }
-
-        $products = $query->paginate(10);
-        return response()->json([
-            'data' => [
-                $products,
-            ]
-        ]);
     }
 }

@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('/products', \App\Http\Controllers\Api\ProductController::class,['getByName']);
-    //Route::get('/product',[\App\Http\Controllers\Api\ProductController::class,'getByName']);
+
 });
