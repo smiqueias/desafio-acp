@@ -25,17 +25,13 @@ class ProductController extends Controller
             $query = Product::query();
             $query->where('name','LIKE', "{$nome}%")->get();
             $products = $query->paginate(10);
-            return response()->json([
-                'data' => [
-                    $products,
-                ]
-            ]);
+            return response()->json([$products,]);
         }
 
         $products = Product::paginate(10);
 
         return response()->json([
-            'data' => $products,
+            $products,
         ],200);
     }
 
@@ -90,7 +86,7 @@ class ProductController extends Controller
 
     }
 
-    public function destroy( int $id) : JsonResponse
+    public function destroy( int $id ) : JsonResponse
     {
         try {
             $product = $this->product->findOrFail($id);
