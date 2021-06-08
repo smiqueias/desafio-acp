@@ -86,11 +86,12 @@ class ProductController extends Controller
 
     }
 
-    public function destroy( int $id ) : JsonResponse
+    public function destroy( $id ) : JsonResponse
     {
         try {
-            $product = $this->product->findOrFail($id);
-            $product->delete();
+            $ids = explode(",",$id);
+            //$product = $this->product->findOrFail($id);
+            $this->product->whereIn('id',$ids)->delete();
             return response()->json([
                 'data' => [
                     'msg' => 'Produto deletado com sucesso!'
