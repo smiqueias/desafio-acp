@@ -24,15 +24,15 @@ class ProductController extends Controller
             $nome = strtolower($request->nome);
             $query = Product::query();
             $query->where('name','LIKE', "{$nome}%")->get();
-            $products = $query->paginate(10);
-            return response()->json([$products,]);
+            $products = $query;
+            return response()->json($products);
         }
 
-        $products = Product::paginate(10);
+        $products = Product::all();
 
-        return response()->json([
-            $products,
-        ],200);
+        return response()->json(
+            $products
+        ,200);
     }
 
     public function store(ProductRequest $request) : JsonResponse
