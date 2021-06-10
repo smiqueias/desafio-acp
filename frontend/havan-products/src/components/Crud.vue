@@ -36,7 +36,7 @@
     
         <Column>
             <template #body="slotProps">
-                <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="editProduct(slotProps.data)" />
+                <Button icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" @click="edit(slotProps.data)" />
                 <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="confirmDeleteProduct(slotProps.data)" />
             </template>
         </Column>
@@ -175,7 +175,6 @@ export default {
         },
         save() {
             this.productService.saveProduct(this.product,this)
-            //this.$toast.add({severity:'success', summary: 'Successful', detail: 'Produto Criado', life: 3000});
         },
         edit(product) {
             this.product = {...product}
