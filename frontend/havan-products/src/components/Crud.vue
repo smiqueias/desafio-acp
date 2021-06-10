@@ -99,7 +99,21 @@
         <Button label="Save" icon="pi pi-check" class="p-button-text" @click="save" />
     </template>
    </Dialog>
+    
     <Toast position="top-left" />
+    
+    <Dialog :visible.sync="deleteProductDialog" :style="{width: '450px'}" header="Detalhes do Produto" :modal="true" class="p-fluid">
+        <div class="confirmation-content">
+            <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem"/>
+            <span v-if="product">
+                Tem certeza que deseja excluir <b> {{product.name}}</b>?
+            </span>
+        </div>
+        <template #footer>
+            <Button label="Não" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false"/>
+            <Button label="Sim" icon="pi pi-check" class="p-button-text" @click="deleteProduct" />
+        </template>
+    </Dialog>
 
 
 </div>
@@ -114,13 +128,14 @@
 
 <script>
 import ProductService from '../services/ProductService'
-import axios from 'axios'
+//import axios from 'axios'
 export default {
     name: 'Crud',
     data() {
         return {
             products: null,
             product: {
+                id: null,
                 name: null,
                 price: null,
                 code: null,
@@ -159,19 +174,22 @@ export default {
             this.submitted = false;
         },
         save() {
-            axios.post('http://127.0.0.1:8000/api/v1/products', {
-                name: this.product.name,
-                price: this.product.price,
-                code: this.product.code,
-                category: this.product.category,
-                status: this.product.status,
-            }).then( (resp) => {
-                if( resp.status == 201  ) {
-                    this.$toast.add({severity:'success', summary: 'Successful', detail: 'Produto Criado', life: 3000});
-                } else {
-                    this.$toast.add({severity:'error', summary: 'Error', detail: 'Error!!', life: 3000});
-                }
-            }).catch(error => {console.log(error)})
+            this.productService.saveProduct(this.product,this)
+            //this.$toast.add({severity:'success', summary: 'Successful', detail: 'Produto Criado', life: 3000});
+        },
+        edit(product) {
+            this.product = {...product}
+            this.productDialog = true
+        },
+        confirmDeleteProduct(product) {
+            this.product = product
+            this.deleteProductDialog = true
+        },
+        deleteProduct() {
+            this.productService.deleteProduct(this.product)
+            this.products = this.products.filter(val => val.id !== this.product.id);
+            this.deleteProductDialog = false;
+            this.product = {};
         }
 
     }
