@@ -95,8 +95,8 @@
             </div>
         </div>
     <template #footer>
-        <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
-        <Button label="Save" icon="pi pi-check" class="p-button-text" @click="save" />
+        <Button label="Cancelar" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
+        <Button label="Salvar" icon="pi pi-check" class="p-button-text" @click="save" />
     </template>
    </Dialog>
     
@@ -127,8 +127,8 @@
 </template>
 
 <script>
+
 import ProductService from '../services/ProductService'
-//import axios from 'axios'
 export default {
     name: 'Crud',
     data() {
@@ -174,7 +174,13 @@ export default {
             this.submitted = false;
         },
         save() {
-            this.productService.saveProduct(this.product,this)
+
+            if (this.product.id) {
+                this.productService.editProduct(this.product,this)
+            } else {
+                this.productService.saveProduct(this.product,this)
+            }
+
         },
         edit(product) {
             this.product = {...product}
@@ -185,7 +191,7 @@ export default {
             this.deleteProductDialog = true
         },
         deleteProduct() {
-            this.productService.deleteProduct(this.product)
+            this.productService.deleteProduct(this.product,this)
             this.products = this.products.filter(val => val.id !== this.product.id);
             this.deleteProductDialog = false;
             this.product = {};
