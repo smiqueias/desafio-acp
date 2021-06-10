@@ -7,7 +7,7 @@
 
 ## Imagens
 <p float="left">
-<img src="https://i.imgur.com/5pR4MOT.png" alt="Tela do App" width="300"/>
-<img src="https://i.imgur.com/TVgSUWe.png" alt="Tela do App" width="300"/>
-<img src="https://i.imgur.com/sV8eFqU.png" alt="Tela do App" width="300"/>
+<img src="https://i.imgur.com/5pR4MOT.png" alt="Tela do App" width="500"/>
+<img src="https://i.imgur.com/TVgSUWe.png" alt="Tela do App" width="500"/>
+<img src="https://i.imgur.com/sV8eFqU.png" alt="Tela do App" width="500"/>
 </p>
