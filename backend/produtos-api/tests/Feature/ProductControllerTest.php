@@ -8,14 +8,16 @@ use Tests\TestCase;
 
 class ProductControllerTest extends TestCase
 {
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_example()
+    public function test_api_list_all_products()
     {
-        $response = $this->get('/');
+
+        $response = $this->get('/api/v1/products');
 
         $response->assertStatus(200);
     }
